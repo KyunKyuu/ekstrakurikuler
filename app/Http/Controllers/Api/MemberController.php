@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Activity, Member, Division, MemberReg, Schedule, ScoreList, TestList, User, UserProfile};
+use App\Models\{Activity, Member, Eskul, MemberReg, Schedule, ScoreList, TestList, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -119,7 +119,7 @@ class MemberController extends Controller
             ]);
         }
 
-        $division = Division::where('id', $request->division_id)->exists();
+        $division = Eskul::where('id', $request->division_id)->exists();
         if (!$division) {
             return response()->json([
                 'status' => 'error',
@@ -178,7 +178,7 @@ class MemberController extends Controller
         }
 
 
-        $division = Division::where('id', $request->division_id)->exists();
+        $division = Eskul::where('id', $request->division_id)->exists();
         if (!$division) {
             return response()->json([
                 'status' => 'error',
@@ -372,7 +372,7 @@ class MemberController extends Controller
     {
         if (!empty($_GET['id'])) {
             $data = DB::table('member_reg')->where('id', $_GET['id'])->get()[0];
-            $division = Division::find($data->division_id);
+            $division = Eskul::find($data->division_id);
             return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => compact('data', 'division')]);
         }
 

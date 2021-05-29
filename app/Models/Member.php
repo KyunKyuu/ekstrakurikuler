@@ -21,7 +21,7 @@ class Member extends Model
 
     public function division()
     {
-        return $this->belongsTo(Division::class,'division_id')->withTrashed();
+        return $this->belongsTo(Eskul::class,'division_id')->withTrashed();
     }
 
     // public function alumni()

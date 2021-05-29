@@ -14,20 +14,20 @@
                     <div class="col col-sm-6">
                         <div class="judul-tentang">
                             <h2>Tentang Kami<span><img  src="{{asset('home_page//img/icon_titik.png')}}" class="mx-3 mb-1 w-2"></span></h2>
-                            <h2><b>Kami Ekstrakurikuler IT Club</b></h2>
+                            <h2><b>Kami Ekstrakurikuler SMK 5</b></h2>
                         </div>
                         <p class="deskripsi-tentang">
-                            IT Club adalah salah satu Ekstrakurikuler yang ada di SMKN 5 Bandung. Sebagai Ekstrakurikuler, artinya IT Club ini merupakan suatu wadah untuk mengembangkan kepribadian, bakat, dan kemampuannya di bidang information and Technology. Pengembangan kemampuan di IT Club itu sendiri dibagi kedalam beberapa bagian, ada Multimedia, Programming dan Networking.
+                            Ekstrakurikuler di SMK Negeri 5 Bandung merupakan program belajar tambahan yang diadakan di sekolah setelah jam belajar selesai. Ekstrakurikuler atau ekskul menjadi wadah yang tepat untuk melihat dan mendalami bakat yang ada di diri siswa. kegiatan ekskul akan sangat bermanfaat buat siswa di kemudian hari. Bisa jadi, kegiatan ekskul yang siswa minati akan menjadi profesi mereka di masa depan dan bermanfaat untuk kehidupan mereka. 
                         </p>
 
                         <div class="divisi-item">
                             <div class="row text-center divisi-tentang">
 
-                                 @foreach($divisions as $division) 
+                                 @foreach($eskuls as $eskul) 
                                 <div class="col col-sm-3 item-1">
-                                    <img src="{{$division->image()}}">
-                                    <h5 class="mt-3 mb-0">{{$division->name}}</h5>
-                                    <a href="{{route('division', $division->slug)}}" class="text-black-50">Baca Selengkapnya</a>
+                                    <img class="rounded-circle" src="{{$eskul->image()}}">
+                                    <h5 class="mt-3 mb-0">{{$eskul->name}}</h5>
+                                    <a href="{{route('eskul_detail', $eskul->slug)}}" class="text-black-50">Baca Selengkapnya</a>
                                 </div>
                                @endforeach
                             </div>

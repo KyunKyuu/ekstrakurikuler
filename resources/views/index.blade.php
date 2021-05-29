@@ -29,44 +29,22 @@
                       <img src="{{asset('home_page/img/img_tentang.png')}}" class="w-100">
                   </div>
                   <div class="col-md-6 my-auto">
-                      <h2 class="judul-2">Tentang Kami <span><img src="{{asset('home_page/img/icon_titik.png')}}" class="mx-3 mb-1"></span> <br> <b>Ekstrakurikuler IT Club ?</b></h2>
-                      <p class="judul-2">IT Club adalah salah satu Ekstrakurikuler yang ada di SMKN 5 Bandung yang bergerak di bidang IT, kami memiliki 4 Divisi diantaranya ada Networking, Multimedia, Programming dan Internet of Things.</p>
+                      <h2 class="judul-2">Tentang Kami <span><img src="{{asset('home_page/img/icon_titik.png')}}" class="mx-3 mb-1"></span> <br> <b>Ekstrakurikuler SMK 5</b></h2>
+                      <p class="judul-2">IT Club adalah salah satu Ekstrakurikuler Ekstrakurikuler di SMK Negeri 5 Bandung merupakan program belajar tambahan yang diadakan di sekolah setelah jam belajar selesai. Ekstrakurikuler atau ekskul menjadi wadah yang tepat untuk melihat...</p>
                       <a href="{{route('tentang')}}" class="btn btn-shadow judul-2">Lihat Selengkapnya</a>
                   </div>
               </div>
           </div>
       </div>
 
-      <div class="mentor p-5">
-          <div class="container text-center">
-              <h2 class="slide"><b>Our Mentor</b></h2>
-              <hr class="orange mx-auto">
-              <div class="row p-4">
-                  <div class="col-md-4 down-delay-1">
-                    <img src="{{asset('home_page/img/herdian.jpg')}}" class="mb-3">
-                    <h5 class="mb-0">Herdian Nuryansyah</h5>
-                    <p>Divisi Networking</p>
-                  </div>
-                  <div class="col-md-4 down-delay-2">
-                    <img src="{{asset('home_page/img/riezkan.jpg')}}" class="mb-3">
-                    <h5 class="mb-0">Riezkan Aprianda F.</h5>
-                    <p>Divisi Programming</p>
-                  </div>
-                  <div class="col-md-4 down-delay-3">
-                    <img src="{{asset('home_page/img/pebi.jpg')}}" class="mb-3">
-                    <h5 class="mb-0">Pebi Ferdiantoro</h5>
-                    <p>Divisi Multimedia</p>
-                  </div>
-              </div>
-          </div>
-      </div>
 
       <div class="prestasi">
           <img src="{{asset('home_page/img/background_prestasi.jpg')}}" class="position-absolute bg-prestasi w-100">
           <div class="container">
             <div class="text-prestasi text-center">
-                <h2 class="text-white slide">Prestasi IT Club</h2>
-                <p class="text-white mb-0 slide">Berikut adalah prestasi yang <br> di peroleh IT Club</p>
+                <h2 class="text-white slide">Prestasi Ekstrakurikuler</h2>
+                <p class="text-white mb-0 slide">Berikut adalah prestasi yang
+                di peroleh Ekstrakurikuler</p>
                 <hr class="orange mx-auto mt-1">
 
                 <div class="owl-carousel owl-theme owl-loaded">
@@ -98,14 +76,14 @@
 
       <div class="divisi-itclub p-5">
           <div class="container text-center">
-            <h2 class="slide"><b>Divisi IT Club</b></h2>
+            <h2 class="slide"><b>Ekstrakurikuler</b></h2>
             <hr class="orange mt-2 mx-auto">
             <div class="row mt-5">
-               @foreach($divisions as $division)
+               @foreach($eskuls as $eskul)
                 <div class="col-md-4 zoomin my-2">
-                    <img src="{{$division->image()}}" alt="Logo Divisi" class="w-50 mb-2">
-                    <h4 class="mb-1">{{$division->name}}</h4>
-                    <a href="{{route('division', $division->slug)}}" class="text-black-50 text-decoration-none">Baca Selengkapnya</a>
+                    <img src="{{$eskul->image()}}" alt="Logo Eskul" class="w-50 mb-2">
+                    <h4 class="mb-1">{{$eskul->name}}</h4>
+                    <a href="{{route('eskul_detail', $eskul->slug)}}" class="text-black-50 text-decoration-none">Baca Selengkapnya</a>
                 </div>
                 @endforeach
             </div>

@@ -303,6 +303,11 @@
     border-radius: 5px;
     border: 0px;
   }
+
+  .nav-link-black {
+    color: black !important;
+  }
+
   .bg-prestasi {
     height: 102rem;
   }
@@ -340,6 +345,20 @@
   }
   .navbar-meta .navbar-dark .navbar-nav .nav-link {
     color: white !important;
+  }
+
+  .navbar-ekskul {
+    color: black !important;
+  }
+
+  .tugas img {
+    max-width: 310px !important;
+    min-width: 310px !important;
+    margin-top: 20px;
+  }
+
+  #nav-link-ekskul {
+    color: black !important;
   }
 
   .img-elearning {
@@ -661,6 +680,25 @@
     max-height: 91px;
     min-width: 122px;
     min-height: 91px;
+  }
+
+  .judul-tugas {
+    padding-top: 40%;
+  }
+
+  .header-materi {
+    background-image: url(../img/background_materi.png);
+    min-height: 340px;
+    background-position-x: center;
+    background-size: cover;
+  }
+
+  /* new one */
+  .navbar-brand {
+    width: 80%;
+  }
+  .footer-body .w-md-50.ml-0 {
+    margin-left: 3rem !important;
   }
 }
 

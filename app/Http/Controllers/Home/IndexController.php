@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Prestation, Division, ImageDivision, Article, Member, Alumni, Gallery, ImageGallery};
+use App\Models\{Prestation, Eskul, VideoEskul, Article, Mentor, Alumni, Gallery, ImageGallery};
 
 
 class IndexController extends Controller
@@ -12,23 +12,29 @@ class IndexController extends Controller
     public function home()
     {
         $prestations = Prestation::latest()->get();
-        $divisions = Division::get();
+        $eskuls = Eskul::latest()->take(3)->get();
+       
         $articlies = Article::where('status', '200')->latest()->take(3)->get();
 
-        return view('index', compact('prestations', 'divisions', 'articlies'));
+        return view('index', compact('prestations', 'eskuls', 'articlies'));
     }
 
     public function tentang()
     {
-        $divisions = Division::get();
-        return view('main/home/tentang', compact('divisions'));
+        $eskuls = Eskul::get();
+        return view('main/home/tentang', compact('eskuls'));
     }
 
-    public function division($slug)
+      public function eskul()
     {
-        $division = Division::where('slug', $slug)->first();
-        $imageDivision = ImageDivision::where('division_id', $division->id)->get();
-        return view('main/home/division', compact('division', 'imageDivision'));
+        $eskuls = Eskul::latest()->paginate(12);
+        return view('main/home/eskul', compact('eskuls'));
+    }
+    public function eskul_detail($slug)
+    {
+        $eskul = Eskul::where('slug', $slug)->first();
+        $VideoEskul = VideoEskul::where('eskul_id', $eskul->id)->get();
+        return view('main/home/eskul_detail', compact('eskul', 'VideoEskul'));
     }
 
     public function gallery()
@@ -44,11 +50,11 @@ class IndexController extends Controller
         return view('main/home/gallery_image', compact('gallery', 'imageGallery'));
     }
 
-    public function member($class)
+    public function mentor()
     {
 
-        $members = Member::where('class', $class)->get();
-        return view('main/home/member', compact('members', 'class'));
+        $mentors = Mentor::latest()->paginate(12);
+        return view('main/home/mentor', compact('mentors'));
     }
 
     public function alumni()

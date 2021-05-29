@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\{
-    Section,Submenu,Menu,Prestation,User,Division,ImageDivision,Alumni,Gallery,ImageGallery,Category,Member,Activity,Schedule,TestList,ScoreList,
+    Section,Submenu,Menu,Prestation,User,Eskul, VideoEskul,Alumni,Gallery,ImageGallery,Category,Member,Activity,Schedule,TestList,ScoreList,Mentor
     };
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -311,145 +311,142 @@ class TrashController extends Controller
         return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
     }
 // 
-    public function division_get()
+    public function eskul_get()
     {
-        $division = Division::onlyTrashed();
-        return DataTables::of($division)
+        $eskul = Eskul::onlyTrashed();
+        return DataTables::of($eskul)
             ->addIndexColumn()
-            ->addColumn('check', function ($division) {
+            ->addColumn('check', function ($eskul) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $division->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $division->id . '" >
-                    <label for="checkbox-' . $division->id . '" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $eskul->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $eskul->id . '" >
+                    <label for="checkbox-' . $eskul->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
-            ->addColumn('btn', function ($division) {
+            ->addColumn('btn', function ($eskul) {
                 return '
-            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $division->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
-            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $division->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $eskul->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $eskul->id . '" id="delete"><i class="fas fa-trash"></i></a>
             ';
             })
-            ->addColumn('imageDivisi', function ($division) {
-                return '<img src="' . $division->image() . '" width="50">';
+            ->addColumn('imageDivisi', function ($eskul) {
+                return '<img src="' . $eskul->image() . '" width="50">';
             })
-            ->editColumn('created_at', function ($division) {
-                return date('d-M-Y H:i', strtotime($division->created_at));
+            ->editColumn('created_at', function ($eskul) {
+                return date('d-M-Y H:i', strtotime($eskul->created_at));
             })
-            ->editColumn('deleted_at', function ($division) {
-                return date('d-M-Y H:i', strtotime($division->deleted_at));
+            ->editColumn('deleted_at', function ($eskul) {
+                return date('d-M-Y H:i', strtotime($eskul->deleted_at));
             })
             ->rawColumns(['check', 'btn', 'status', 'imageDivisi'])
             ->make(true);
     }
 
-    public function division_recovery(Request $request)
+    public function eskul_recovery(Request $request)
     {
         activity('merecovery data sampah divisi');
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
-                 $division = Division::onlyTrashed()->where('id', $value)->first();
+                 $eskul = Eskul::onlyTrashed()->where('id', $value)->first();
                   
-                  $division->restore();  
+                  $eskul->restore();  
             }
             return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
         }
-      $division = Division::onlyTrashed()->where('id', $request->value)->first();
+      $eskul = Eskul::onlyTrashed()->where('id', $request->value)->first();
      
-      $division->restore();  
+      $eskul->restore();  
         return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
     }
 
-    public function division_delete(Request $request)
+    public function eskul_delete(Request $request)
     {
         activity('menghapus data sampah divisi');
 
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
-               $division = Division::onlyTrashed()->where('id', $value)->first();
-                \Storage::delete($division->image);
+               $eskul = Eskul::onlyTrashed()->where('id', $value)->first();
+                \Storage::delete($eskul->image);
 
-               $division->images()->forceDelete();
-               $division->members()->forceDelete();
-               $division->forceDelete();
+               $eskul->video()->forceDelete();
+               $eskul->members()->forceDelete();
+               $eskul->forceDelete();
             }
             return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
         }
       
-      $division = Division::onlyTrashed()->where('id', $request->value)->first();
-      \Storage::delete($division->image);
+      $eskul = Eskul::onlyTrashed()->where('id', $request->value)->first();
+      \Storage::delete($eskul->image);
       
-       foreach ($division->images as $data) {
-            \Storage::delete($data->image);
-         }
 
-      $division->images()->forceDelete();
-      $division->members()->forceDelete();
-      $division->forceDelete();
+      $eskul->video()->forceDelete();
+      $eskul->members()->forceDelete();
+      $eskul->forceDelete();
 
         return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
     }
 
-    public function imageDivision_get()
+    public function videoEskul_get()
     {
-        $imageDivision = ImageDivision::onlyTrashed();
+        $videoEskul = VideoEskul::onlyTrashed();
 
-        return DataTables::of($imageDivision)
+        return DataTables::of($videoEskul)
             ->addIndexColumn()
-            ->addColumn('check', function ($imageDivision) {
+            ->addColumn('check', function ($videoEskul) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $imageDivision->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $imageDivision->id . '" >
-                    <label for="checkbox-' . $imageDivision->id . '" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $videoEskul->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $videoEskul->id . '" >
+                    <label for="checkbox-' . $videoEskul->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
-            ->addColumn('btn', function ($imageDivision) {
+            ->addColumn('btn', function ($videoEskul) {
                 return '
-            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $imageDivision->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
-            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $imageDivision->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $videoEskul->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $videoEskul->id . '" id="delete"><i class="fas fa-trash"></i></a>
             ';
             })
-            ->addColumn('imageDivisi', function ($imageDivision) {
-                return '<img src="' . $imageDivision->image() . '" width="50">';
+            ->addColumn('video', function ($videoEskul) {
+                  return '<iframe src="{{$videoEskul->url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
             })
-            ->editColumn('division_id', function ($imageDivision) {   
-                return $imageDivision->division->name;
+            ->editColumn('eskul_id', function ($videoEskul) {   
+                return $videoEskul->eskul->name;
             })
-            ->editColumn('created_at', function ($imageDivision) {
-                return date('d-M-Y H:i', strtotime($imageDivision->created_at));
+            ->editColumn('created_at', function ($videoEskul) {
+                return date('d-M-Y H:i', strtotime($videoEskul->created_at));
             })
-            ->editColumn('deleted_at', function ($imageDivision) {
-                return date('d-M-Y H:i', strtotime($imageDivision->deleted_at));
+            ->editColumn('deleted_at', function ($videoEskul) {
+                return date('d-M-Y H:i', strtotime($videoEskul->deleted_at));
             })
-            ->rawColumns(['check', 'btn', 'status', 'division_id', 'imageDivisi'])
+            ->rawColumns(['check', 'btn', 'status', 'eskul_id', 'video'])
             ->make(true);
     }
 
-    public function imageDivision_recovery(Request $request)
+    public function videoEskul_recovery(Request $request)
     {
         activity('merecovery data sampah image divisi');
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
-                ImageDivision::onlyTrashed()->where('id', $value)->restore();
+                VideoEskul::onlyTrashed()->where('id', $value)->restore();
             }
             return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
         }
-         ImageDivision::onlyTrashed()->where('id', $request->value)->restore();
+         VideoEskul::onlyTrashed()->where('id', $request->value)->restore();
         return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
     }
 
-    public function imageDivision_delete(Request $request)
+    public function videoEskul_delete(Request $request)
     {
         activity('menghapus data sampah image divisi');
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
-               $imageDivision = ImageDivision::onlyTrashed()->where('id', $value)->first();
-                \Storage::delete($imageDivision->image);
-               $imageDivision->forceDelete();
+               $videoEskul = VideoEskul::onlyTrashed()->where('id', $value)->first();
+     
+               $videoEskul->forceDelete();
             }
             return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
         }
       
-       $imageDivision = ImageDivision::onlyTrashed()->where('id', $request->value)->first();
-      \Storage::delete($imageDivision->image);
-      $imageDivision->forceDelete();
+       $videoEskul = VideoEskul::onlyTrashed()->where('id', $request->value)->first();
+     
+      $videoEskul->forceDelete();
         return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
     }
 
@@ -996,6 +993,68 @@ class TrashController extends Controller
         }
       
      ScoreList::onlyTrashed()->where('id', $request->value)->forceDelete();
+        return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+    }
+
+     public function mentor_get()
+    {
+        $mentor = Mentor::onlyTrashed();
+
+         return DataTables::of($mentor)
+            ->addIndexColumn()
+            ->addColumn('check', function ($mentor) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $mentor->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $mentor->id . '" >
+                    <label for="checkbox-' . $mentor->id . '" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+             ->addColumn('btn', function ($mentor) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $mentor->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $mentor->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->addColumn('imageMentor', function ($mentor) {
+                return '<img src="' . $mentor->image() . '" width="50">';
+            })
+            ->addColumn('eskul', function ($mentor) {
+                return '<a href="#" class="btn btn-icon btn-sm btn-primary">'.$mentor->eskul->name.'</a>
+            ';
+            })
+            ->rawColumns(['check', 'btn','imageMentor','eskul'])
+            ->make(true);
+    }
+
+
+    public function mentor_recovery(Request $request)
+    {
+        activity('merecovery data sampah mentor');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                Mentor::onlyTrashed()->where('id', $value)->restore();
+            }
+            return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+        }
+         Mentor::onlyTrashed()->where('id', $request->value)->restore();
+        return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+    }
+
+    public function mentor_delete(Request $request)
+    {
+        activity('menghapus data sampah mentor');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+               $mentor = Mentor::onlyTrashed()->where('id', $value)->first();
+                \Storage::delete($mentor->image);
+                
+               $mentor->forceDelete();
+            }
+            return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+        }
+      
+      $mentor = Mentor::onlyTrashed()->where('id', $request->value)->first();
+      \Storage::delete($mentor->image);
+      $mentor->forceDelete();
         return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
     }
 }

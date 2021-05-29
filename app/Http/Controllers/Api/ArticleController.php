@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Blog;
+use App\Models\Eskul;
 use App\Models\Category;
 use App\Models\CategoryBlog;
 use App\Models\Suspended;
@@ -65,6 +66,9 @@ class ArticleController extends Controller
                 $user = User::find($article->user_id);
                 return $user->name;
             })
+             ->editColumn('eskul_id', function ($article) {
+                return $article->eskul->name;
+            })
             ->editColumn('created_at', function ($article) {
                 return date('d-M-Y H:i', strtotime($article->created_at));
             })
@@ -113,7 +117,7 @@ class ArticleController extends Controller
         }
 
         $title = str_replace('"', '-', $request->title);
-        $request->request->add(['user_id' => auth()->user()->id, 'slug' => \Str::slug(request('title'))]);
+        $request->request->add(['user_id' => auth()->user()->id,'eskul_id' => $request->eskul_id, 'slug' => \Str::slug(request('title'))]);
         $blog = Article::create($request->except('image'));
 
         if ($request->category) {
@@ -188,7 +192,7 @@ class ArticleController extends Controller
            $request->request->add(['thumbnail' => $imageArticle]);
          }
         $title = str_replace('"', '-', $request->title);
-        $request->request->add(['user_id' => auth()->user()->id, 'slug' => \Str::slug(request('title'))]);
+        $request->request->add(['user_id' => auth()->user()->id, 'eskul_id' => $request->eskul_id,'slug' => \Str::slug(request('title'))]);
        
         $blog->update($request->except('image'));
         activity('mengubah data article');

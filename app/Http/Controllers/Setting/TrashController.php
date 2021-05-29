@@ -28,9 +28,9 @@ class TrashController extends Controller
         return view('main.setting.user_trash');
     }
 
-    public function division()
+    public function eskul()
     {
-        return view('main.setting.division_trash');
+        return view('main.setting.eskul_trash');
     }
 
     public function prestation()
@@ -38,9 +38,9 @@ class TrashController extends Controller
         return view('main.setting.prestation_trash');
     }
 
-    public function imageDivision()
+    public function videoEskul()
     {
-        return view('main.setting.imageDivision_trash');
+        return view('main.setting.videoEskul_trash');
     }
 
     public function member()
@@ -86,5 +86,10 @@ class TrashController extends Controller
     public function score()
     {
         return view('main.setting.score_trash');
+    }
+
+    public function mentor()
+    {
+        return view('main.setting.mentor_trash');
     }
 }

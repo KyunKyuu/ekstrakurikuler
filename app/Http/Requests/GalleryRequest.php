@@ -25,7 +25,6 @@ class GalleryRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
         ];
     }

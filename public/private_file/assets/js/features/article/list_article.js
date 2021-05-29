@@ -2,6 +2,7 @@ $(document).ready(function() {
     const data = [
         {data:'check', name:'check', orderable:false, searchable:false},
         {data:'title', name:'title'},
+        {data:'eskul_id', name:'eskul_id'},
         {data:'category', name:'category'},
         {data:'author', name:'author'},
         {data:'created_at', name:'created_at'},
@@ -58,6 +59,7 @@ $(document).ready(function() {
                 $('#updateArticle textarea[name="title"]').val(res.data.article.title)
                 $('#updateArticle textarea[name="title"]').attr('data-id',res.data.article.id)
                 $('#updateArticle img').attr('src', '/storage/' +res.data.article.thumbnail)
+                $('#updateArticle select[name="eskul_id"] option[value="'+res.data.article.eskul_id+'"]').attr('selected', true);
                 $('#updateArticle select[name="category[]"]').val(category)
                 $('#updateArticle select[name="category[]"]').select2()
             },

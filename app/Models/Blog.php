@@ -25,6 +25,11 @@ class Blog extends Model
         return $this->belongsTo(User::class)->withTrashed();
     }
 
+     public function eskul()
+    {
+        return $this->belongsTo(Eskul::class, 'eskul_id');
+    }
+
     public function thumbnail()
     {
         return !$this->thumbnail ? asset('no-image.jpg') : asset("storage/" . $this->thumbnail);

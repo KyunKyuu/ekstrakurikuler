@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{User,Division};
+use App\Models\{User, Eskul};
 class MemberController extends Controller
 {
     public function member()
     {
         $users = User::where('email_verified_at','!=',null)->get();
-        $divisions = Division::get();
+        $divisions = Eskul::get();
        
-        return view('main.master.members.member', compact('users','divisions'));
+        return view('main.master.profiles.member', compact('users','divisions'));
     }
 }

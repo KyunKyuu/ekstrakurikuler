@@ -28,7 +28,7 @@
                       <a href="https://www.instagram.com/itclubsmkn5bdg/" class="mr-3"><img src="{{asset('home_page/img/ic_ig.png')}}"></a>
                       <a href="https://www.youtube.com/channel/UC4k9rPrapnWphcuQYgqJF4w/videos" class="mr-3"><img src="{{asset('home_page/img/ic_yt.png')}}"></a>
                   </div>
-                  <img src="{{asset('home_page/img/logo.png')}}" class="w-md-50 w-100">
+                  <img src="{{asset('home_page/img/logo.png')}}" class="w-md-25 w-25 ml-0">
                 </div>
             </div>
         </div>

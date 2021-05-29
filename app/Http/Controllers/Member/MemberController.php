@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
-use App\Models\Division;
+use App\Models\Eskul;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -16,19 +16,19 @@ class MemberController extends Controller
 
     public function schedule()
     {
-        $divisi  = Division::all();
+        $divisi  = Eskul::all();
         return view('main.member.schedule', compact('divisi'));
     }
 
     public function test()
     {
-        $division = Division::all();
+        $division = Eskul::all();
         return view('main.member.precentages.test', compact('division'));
     }
 
     public function score()
     {
-        $division = Division::all();
+        $division = Eskul::all();
         return view('main.member.precentages.score', compact('division'));
     }
 }

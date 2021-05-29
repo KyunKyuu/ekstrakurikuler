@@ -21,22 +21,24 @@ use App\Http\Controllers\Master\MemberController;
 use App\Http\Controllers\Master\CategoryController;
 use App\Http\Controllers\Master\PrestationController;
 use App\Http\Controllers\Master\GalleryController;
-use App\Http\Controllers\Master\DivisionController;
-use App\Http\Controllers\Master\ImageDivisionController;
+use App\Http\Controllers\Master\EskulController;
+use App\Http\Controllers\Master\MentorController;
+use App\Http\Controllers\Master\VideoEskulController;
 use App\Http\Controllers\Master\ImageGalleryController;
 use App\Http\Controllers\Setting\ErrorController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Home\IndexController as HomeController;
 
-use App\Http\Controllers\Api\DivisionController as ApiDivisionController;
-use App\Http\Controllers\Api\ImageDivisionController as ApiImageDivisionController;
+use App\Http\Controllers\Api\EskulController as ApiEskulController;
+use App\Http\Controllers\Api\VideoEskulController as ApiVideoEskulController;
 use App\Http\Controllers\Api\GalleryController as ApiGalleryController;
 use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController;
 use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
+use App\Http\Controllers\Api\MentorController as ApiMentorController;
 use App\Http\Controllers\Api\TrashController as ApiTrashController;
 use App\Http\Controllers\Api\UserGuideController;
 use App\Http\Controllers\Auth\MailController;
@@ -60,10 +62,11 @@ use Illuminate\Routing\RouteGroup;
 // Home Page
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/tentang', [HomeController::class, 'tentang'])->name('tentang');
-Route::get('/division/{slug:slug}', [HomeController::class, 'division'])->name('division');
+Route::get('/eskul', [HomeController::class, 'eskul'])->name('eskul');
+Route::get('/eskul/{slug:slug}', [HomeController::class, 'eskul_detail'])->name('eskul_detail');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/gallery/{slug:slug}', [HomeController::class, 'image_gallery'])->name('image.gallery');
-Route::get('/member/{class:class}', [HomeController::class, 'member'])->name('member');
+Route::get('/mentor', [HomeController::class, 'mentor'])->name('mentor');
 Route::get('/alumni', [HomeController::class, 'alumni'])->name('alumni');
 Route::get('/article', [HomeController::class, 'article'])->name('article');
 Route::get('/article/{slug:slug}', [HomeController::class, 'article_detail'])->name('article_detail');
@@ -90,12 +93,13 @@ Route::group(['prefix' => '/master', 'middleware' => ['auth', 'access']], functi
     Route::get('/user', [UserController::class, 'user']);
     Route::get('/role', [RoleController::class, 'role']);
     Route::get('/category', [CategoryController::class, 'category']);
-    Route::get('/divisions/division', [DivisionController::class, 'division']);
-    Route::get('/divisions/imagedivision', [ImageDivisionController::class, 'image_division']);
+    Route::get('/eskul/eskul', [EskulController::class, 'eskul']);
+    Route::get('/eskul/videoeskul', [VideoEskulController::class, 'video_eskul']);
     Route::get('/galleries/gallery', [GalleryController::class, 'gallery']);
     Route::get('/galleries/imagegallery', [ImageGalleryController::class, 'image_gallery']);
-    Route::get('/members/member', [MemberController::class, 'member']);
-    Route::get('/members/alumni', [AlumniController::class, 'alumni']);
+    Route::get('/profiles/member', [MemberController::class, 'member']);
+    Route::get('/profiles/alumni', [AlumniController::class, 'alumni']);
+    Route::get('/profiles/mentor', [MentorController::class, 'mentor']);
     Route::get('/prestation', [PrestationController::class, 'prestation']);
 });
 
@@ -107,8 +111,8 @@ Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], funct
     Route::get('/trash/menu', [TrashController::class, 'menu']);
     Route::get('/trash/user', [TrashController::class, 'user']);
     Route::get('/trash/submenu', [TrashController::class, 'submenu']);
-    Route::get('/trash/division', [TrashController::class, 'division']);
-    Route::get('/trash/imagedivision', [TrashController::class, 'imageDivision']);
+    Route::get('/trash/eskul', [TrashController::class, 'eskul']);
+    Route::get('/trash/videoeskul', [TrashController::class, 'videoEskul']);
     Route::get('/trash/prestation', [TrashController::class, 'prestation']);
     Route::get('/trash/member', [TrashController::class, 'member']);
     Route::get('/trash/alumni', [TrashController::class, 'alumni']);
@@ -119,6 +123,7 @@ Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], funct
     Route::get('/trash/schedule', [TrashController::class, 'schedule']);
     Route::get('/trash/tests', [TrashController::class, 'tests']);
     Route::get('/trash/score', [TrashController::class, 'score']);
+    Route::get('/trash/mentor', [TrashController::class, 'mentor']);
 });
 
 Route::group(['prefix' => '/members', 'middleware' => 'auth'], function () {
@@ -279,18 +284,18 @@ Route::prefix('/api/v1')->group(function () {
 
     Route::group(['middleware' => ['auth']], function () {
 
-        Route::prefix('division')->group(function () {
-            Route::get('get', [ApiDivisionController::class, 'index']);
-            Route::post('insert', [ApiDivisionController::class, 'store']);
-            Route::post('update', [ApiDivisionController::class, 'update']);
-            Route::delete('delete', [ApiDivisionController::class, 'destroy']);
+        Route::prefix('eskul')->group(function () {
+            Route::get('get', [ApiEskulController::class, 'index']);
+            Route::post('insert', [ApiEskulController::class, 'store']);
+            Route::post('update', [ApiEskulController::class, 'update']);
+            Route::delete('delete', [ApiEskulController::class, 'destroy']);
         });
 
-        Route::prefix('imageDivision')->group(function () {
-            Route::get('get', [ApiImageDivisionController::class, 'index']);
-            Route::post('insert', [ApiImageDivisionController::class, 'store']);
-            Route::post('update', [ApiImageDivisionController::class, 'update']);
-            Route::delete('delete', [ApiImageDivisionController::class, 'destroy']);
+        Route::prefix('videoEskul')->group(function () {
+            Route::get('get', [ApiVideoEskulController::class, 'index']);
+            Route::post('insert', [ApiVideoEskulController::class, 'store']);
+            Route::post('update', [ApiVideoEskulController::class, 'update']);
+            Route::delete('delete', [ApiVideoEskulController::class, 'destroy']);
         });
 
         Route::prefix('gallery')->group(function () {
@@ -326,6 +331,14 @@ Route::prefix('/api/v1')->group(function () {
             Route::post('insert', [ApiCategoryController::class, 'store']);
             Route::post('update', [ApiCategoryController::class, 'update']);
             Route::delete('delete', [ApiCategoryController::class, 'destroy']);
+
+        });
+
+        Route::prefix('mentor')->group(function () {
+            Route::get('get', [ApiMentorController::class, 'index']);
+            Route::post('insert', [ApiMentorController::class, 'store']);
+            Route::post('update', [ApiMentorController::class, 'update']);
+            Route::delete('delete', [ApiMentorController::class, 'destroy']);
         });
 
 
@@ -350,13 +363,13 @@ Route::prefix('/api/v1')->group(function () {
             Route::post('user/recovery', [ApiTrashController::class, 'user_recovery']);
             Route::delete('user/delete', [ApiTrashController::class, 'user_delete']);
 
-            Route::get('division/get', [ApiTrashController::class, 'division_get']);
-            Route::post('division/recovery', [ApiTrashController::class, 'division_recovery']);
-            Route::delete('division/delete', [ApiTrashController::class, 'division_delete']);
+            Route::get('eskul/get', [ApiTrashController::class, 'eskul_get']);
+            Route::post('eskul/recovery', [ApiTrashController::class, 'eskul_recovery']);
+            Route::delete('eskul/delete', [ApiTrashController::class, 'eskul_delete']);
 
-            Route::get('imageDivision/get', [ApiTrashController::class, 'imageDivision_get']);
-            Route::post('imageDivision/recovery', [ApiTrashController::class, 'imageDivision_recovery']);
-            Route::delete('imageDivision/delete', [ApiTrashController::class, 'imageDivision_delete']);
+            Route::get('videoEskul/get', [ApiTrashController::class, 'videoEskul_get']);
+            Route::post('videoEskul/recovery', [ApiTrashController::class, 'videoEskul_recovery']);
+            Route::delete('videoEskul/delete', [ApiTrashController::class, 'videoEskul_delete']);
 
             Route::get('member/get', [ApiTrashController::class, 'member_get']);
             Route::post('member/recovery', [ApiTrashController::class, 'member_recovery']);
@@ -393,6 +406,10 @@ Route::prefix('/api/v1')->group(function () {
             Route::get('score/get', [ApiTrashController::class, 'score_get']);
             Route::post('score/recovery', [ApiTrashController::class, 'score_recovery']);
             Route::delete('score/delete', [ApiTrashController::class, 'score_delete']);
+
+            Route::get('mentor/get', [ApiTrashController::class, 'mentor_get']);
+            Route::post('mentor/recovery', [ApiTrashController::class, 'mentor_recovery']);
+            Route::delete('mentor/delete', [ApiTrashController::class, 'mentor_delete']);
         });
     });
 

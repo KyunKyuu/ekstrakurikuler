@@ -58,6 +58,7 @@
                           </div>
                         </th>
                         <th>Title</th>
+                        <th>Eskul</th>
                         <th>Category</th>
                         <th style="width: 20px">Author</th>
                         <th style="width: 100px">Created At</th>
@@ -109,6 +110,20 @@
                           </div>
                         </div>
                       </div>
+                     <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Eskul</label>
+                           <div class="col-sm-9">
+                        <select required name="eskul_id" class="form-control">
+                              <option selected disabled>== Berita Eskul ==</option>
+                              @foreach ($data['eskul'] as $eskul)
+                                <option value="{{$eskul->id}}">{{$eskul->name}}</option>
+                              @endforeach
+                          </select>
+                        <div class="invalid-feedback">
+                          Please fill in the Eskul ID
+                        </div>
+                      </div>
+                      </div>  
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Category</label>
                         <div class="col-sm-9">
@@ -160,6 +175,22 @@
                           <textarea name="title" cols="30" rows="10" class="form-control" style="min-height: 70px;" ></textarea>
                         </div>
                       </div>
+
+                        <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Eskul</label>
+                           <div class="col-sm-9">
+                        <select required name="eskul_id" class="form-control">
+                              <option selected disabled>== Berita Eskul ==</option>
+                              @foreach ($data['eskul'] as $eskul)
+                                <option value="{{$eskul->id}}">{{$eskul->name}}</option>
+                              @endforeach
+                          </select>
+                        <div class="invalid-feedback">
+                          Please fill in the Eskul ID
+                        </div>
+                      </div>
+                      </div> 
+
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Category</label>
                         <div class="col-sm-9">
