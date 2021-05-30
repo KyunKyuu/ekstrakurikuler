@@ -63,10 +63,25 @@ class IndexController extends Controller
         return view('main/home/alumni', compact('alumnies'));
     }
 
-    public function article()
-    {
-        $articlies = Article::where('status', '200')->paginate(5);
-        return view('main/home/article', compact('articlies'));
+    public function article(Request $request)
+    {   
+
+
+        if (!$request->eskul) {
+         $articlies = Article::where('status', '200')->paginate(5);
+         }else{
+
+              if($request->eskul == 'all') {
+                 $articlies = Article::where('status', '200')->paginate(5);
+             }else{
+                 $articlies = Article::where('status', '200')->where('eskul_id', $request->eskul)->paginate(5);
+             }
+           
+        }
+          
+        $eskuls = Eskul::get();
+       
+        return view('main/home/article', compact('articlies','eskuls'));
     }
 
     public function article_detail($slug)

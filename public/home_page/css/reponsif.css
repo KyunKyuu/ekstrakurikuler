@@ -239,6 +239,9 @@
   .deskripsi-tentang {
     margin-bottom: 30px;
   }
+  .w-md-25{
+    width: 100% !important;
+  }
 }
 
 /* 
@@ -693,12 +696,25 @@
     background-size: cover;
   }
 
+  .logo-ekskul {
+    min-width: 238px !important;
+    min-height: 238px !important;
+    max-width: 238px !important;
+    max-height: 238px !important;
+  }
+
   /* new one */
   .navbar-brand {
     width: 80%;
   }
   .footer-body .w-md-50.ml-0 {
     margin-left: 3rem !important;
+  }
+  .w-md-25{
+    width: 100% !important;
+  }
+  .badge{
+    margin-right: 0px;
   }
 }
 
