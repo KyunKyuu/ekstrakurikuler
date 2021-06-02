@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AuthMail;
-use App\Models\Division;
+use App\Models\Eskul;
 use App\Models\Member;
 use App\Models\ScoreList;
 use App\Models\User;
@@ -77,7 +77,7 @@ class IndexController extends Controller
 
     public function upgrade_member()
     {
-        $divisi = Division::all();
+        $divisi = Eskul::all();
         $reg = DB::table('member_reg')->where('user_id', auth()->user()->id)->get();
         return view('main.resource.upgrade', compact('divisi', 'reg'));
     }
