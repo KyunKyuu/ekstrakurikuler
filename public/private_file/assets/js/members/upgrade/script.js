@@ -35,7 +35,7 @@ $(document).ready(function(){
     $('#wizard-form-2 input[type="radio"]').on('change', function() {
         let id = $(this).val()
         $.ajax({
-            url:'/api/v1/division/get',
+            url:'/api/v1/eskul/get',
             data:{
                 id:id
             },
