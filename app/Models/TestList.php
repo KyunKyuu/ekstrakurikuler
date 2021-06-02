@@ -21,6 +21,6 @@ class TestList extends Model
 
     public function division()
     {
-        return $this->hasOne(Division::class, 'id', 'division_id');
+        return $this->hasOne(Eskul::class, 'id', 'division_id');
     }
 }
