@@ -75,7 +75,7 @@ Route::get('/eLearning', [HomeController::class, 'eLearning'])->name('eLearning'
 Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
-
+Route::get('/auth/forgotpassword', [AuthController::class, 'forgotpassword']);
 Route::group(['prefix' => '/dashboard', 'middleware' => ['auth', 'access']], function () {
     Route::get('/general/index', [IndexController::class, 'dashboard_general'])->name('dashboard');
     Route::get('/user/index', [IndexController::class, 'dashboard_user'])->name('dashboard_user');
@@ -158,6 +158,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/register', [ApiAuthController::class, 'register']);
         Route::post('/login', [ApiAuthController::class, 'login']);
         Route::get('/logout', [ApiAuthController::class, 'logout']);
+        Route::post('/forgotpassword', [ApiAuthController::class, 'forgotpassword']);
     });
 
     Route::group(['prefix' => '/user'], function () {
