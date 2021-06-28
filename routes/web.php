@@ -83,6 +83,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth', 'access']], fun
 
 Route::group(['prefix' => '/authentication/mail'], function () {
     Route::get('/activation/{resource}', [MailController::class, 'activation']);
+    Route::get('/forgotpassword/{resource}', [MailController::class, 'forgotpassword']);
 });
 
 
