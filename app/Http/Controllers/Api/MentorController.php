@@ -8,7 +8,8 @@ use App\Http\Requests\MentorRequest;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-
+use App\Exports\MentorExport;
+use Maatwebsite\Excel\Facades\Excel;
 class MentorController extends Controller
 {
      public function index()
@@ -44,6 +45,11 @@ class MentorController extends Controller
             })
             ->rawColumns(['check', 'btn', 'images', 'eskul_id'])
             ->make(true);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new MentorExport, 'Data_mentor.xlsx');
     }
 
      public function store(MentorRequest $request)

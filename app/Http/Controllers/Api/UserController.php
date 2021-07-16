@@ -13,7 +13,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
-
+use App\Exports\UserExport;
+use Maatwebsite\Excel\Facades\Excel;
 class UserController extends Controller
 {
     public function user()
@@ -93,6 +94,11 @@ class UserController extends Controller
         activity('Delete user ' . $user->name);
         $user->delete();
         return response()->json(['message' => 'Data berhasil dihapus', 'status' => 'success']);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new UserExport, 'Data_user.xlsx');
     }
 
     public function get_all_activity()

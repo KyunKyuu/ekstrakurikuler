@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Test;
 use Yajra\DataTables\Facades\DataTables;
-
+use App\Exports\MemberExport;
+use Maatwebsite\Excel\Facades\Excel;
 class MemberController extends Controller
 {
 
@@ -75,6 +76,12 @@ class MemberController extends Controller
             ->rawColumns(['check', 'btn', 'imageMember', 'user_id', 'division_id'])
             ->make(true);
     }
+
+    public function export() 
+    {
+        return Excel::download(new MemberExport, 'Data_member.xlsx');
+    }
+
 
     public function show($id)
     {

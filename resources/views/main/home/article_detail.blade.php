@@ -32,7 +32,7 @@
                                     <div class="ml-2">
                                         <h6 class="sub-judul-kegiatan-terbaru"><a href="{{route('article_detail',$data->slug)}}" class="text-decoration-none">{{$data->title}}</a></h6>
                                         <p class="kegiatan-item text-black-50">{{$data->created_at}}</p>
-                                        <p class="kegiatan-item-2 style="word-wrap: break-word;">{!! \Str::limit($article->content, 45, '..') !!}</p>
+                                        <p class="kegiatan-item-2 style="word-wrap: break-word;">{!! \Str::limit($data->content, 45, '..') !!}</p>
                                     </div>
                                 </div>
                               @endforeach

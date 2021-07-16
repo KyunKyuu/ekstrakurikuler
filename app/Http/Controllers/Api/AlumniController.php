@@ -7,7 +7,8 @@ use App\Models\{Member, Alumni};
 use App\Http\Requests\AlumniRequest;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
-
+use App\Exports\AlumniExport;
+use Maatwebsite\Excel\Facades\Excel;
 class AlumniController extends Controller
 {
 
@@ -41,6 +42,12 @@ class AlumniController extends Controller
             ->rawColumns(['check', 'btn','imageAlumni'])
             ->make(true);
     }
+
+    public function export() 
+    {
+        return Excel::download(new AlumniExport, 'Data_alumni.xlsx');
+    }
+
 
     public function show($id)
     {

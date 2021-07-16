@@ -8,6 +8,7 @@
                 <div class="card-header">
                     <h4>Data Member</h4>
                 <div class="ml-auto">
+                <a href="/api/v1/member/export" class="btn btn-success rounded"><i class="fas fa-download"></i> Export</a>
                     <a href="#" class="btn btn-primary rounded" data-target="#insertMember" data-toggle="modal"><i class="fas fa-plus"></i> Tambah</a>
                     <a href="#" class="btn btn-danger rounded" id="deleteArray"><i class="far fa-trash-alt" ></i> Hapus</a>
                 </div>

@@ -8,7 +8,8 @@ use App\Http\Requests\EskulRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
-
+use App\Exports\EskulExport;
+use Maatwebsite\Excel\Facades\Excel;
 class EskulController extends Controller
 {
     public function index()
@@ -40,6 +41,11 @@ class EskulController extends Controller
 
             ->rawColumns(['check', 'btn', 'imageEskul'])
             ->make(true);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new EskulExport, 'Data_eskul.xlsx');
     }
 
     public function show($id)

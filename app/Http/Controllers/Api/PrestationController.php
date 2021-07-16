@@ -7,7 +7,8 @@ use App\Models\{Prestation};
 use App\Http\Requests\PrestationRequest;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
-
+use App\Exports\PrestationExport;
+use Maatwebsite\Excel\Facades\Excel;
 class PrestationController extends Controller
 {
     public function index()
@@ -39,6 +40,11 @@ class PrestationController extends Controller
 
             ->rawColumns(['check', 'btn', 'images'])
             ->make(true);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new PrestationExport, 'Data_prestation.xlsx');
     }
 
     public function show($id)

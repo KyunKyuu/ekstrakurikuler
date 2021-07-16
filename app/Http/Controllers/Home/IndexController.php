@@ -68,11 +68,11 @@ class IndexController extends Controller
 
 
         if (!$request->eskul) {
-         $articlies = Article::where('status', '200')->paginate(5);
+         $articlies = Article::where('status', '200')->latest()->paginate(5);
          }else{
 
               if($request->eskul == 'all') {
-                 $articlies = Article::where('status', '200')->paginate(5);
+                 $articlies = Article::where('status', '200')->latest()->paginate(5);
              }else{
                  $articlies = Article::where('status', '200')->where('eskul_id', $request->eskul)->paginate(5);
              }

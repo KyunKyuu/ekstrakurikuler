@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         // hisorange\BrowserDetect\ServiceProvider::class,
 
         /*
@@ -229,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\DataTablesServiceProvider::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         // 'Browser' => hisorange\BrowserDetect\Facade::class,
     ],
 

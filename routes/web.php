@@ -168,7 +168,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::delete('/delete', [ApiUserController::class, 'delete_user']);
         Route::post('/update', [ApiUserController::class, 'update_user']);
         Route::put('/status/update', [ApiUserController::class, 'update_status_user']);
-
+        Route::get('/export', [ApiUserController::class, 'export']);
         Route::get('/activity/all', [ApiUserController::class, 'get_all_activity']);
         Route::get('/activity/browser', [ApiUserController::class, 'get_browser_activity']);
     });
@@ -233,6 +233,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('insert', [ApiMemberController::class, 'store']);
         Route::post('update', [ApiMemberController::class, 'update']);
         Route::delete('delete', [ApiMemberController::class, 'destroy']);
+        Route::get('/export', [ApiMemberController::class, 'export']);
 
         Route::get('/get_profile', [ApiMemberController::class, 'get_profile']);
         Route::post('/insert/profile', [ApiMemberController::class, 'insert_profile']);
@@ -291,6 +292,7 @@ Route::prefix('/api/v1')->group(function () {
             Route::post('insert', [ApiEskulController::class, 'store']);
             Route::post('update', [ApiEskulController::class, 'update']);
             Route::delete('delete', [ApiEskulController::class, 'destroy']);
+            Route::get('export', [ApiEskulController::class, 'export']);
         });
 
         Route::prefix('videoEskul')->group(function () {
@@ -319,6 +321,7 @@ Route::prefix('/api/v1')->group(function () {
             Route::post('insert', [ApiPrestationController::class, 'store']);
             Route::post('update', [ApiPrestationController::class, 'update']);
             Route::delete('delete', [ApiPrestationController::class, 'destroy']);
+            Route::get('export', [ApiPrestationController::class, 'export']);
         });
 
         Route::prefix('alumni')->group(function () {
@@ -326,6 +329,7 @@ Route::prefix('/api/v1')->group(function () {
             Route::post('insert', [ApiAlumniController::class, 'store']);
             Route::post('update', [ApiAlumniController::class, 'update']);
             Route::delete('delete', [ApiAlumniController::class, 'destroy']);
+            Route::get('export', [ApiAlumniController::class, 'export']);
         });
 
         Route::prefix('category')->group(function () {
@@ -341,6 +345,7 @@ Route::prefix('/api/v1')->group(function () {
             Route::post('insert', [ApiMentorController::class, 'store']);
             Route::post('update', [ApiMentorController::class, 'update']);
             Route::delete('delete', [ApiMentorController::class, 'destroy']);
+            Route::get('export', [ApiMentorController::class, 'export']);
         });
 
 
